@@ -4,23 +4,61 @@ const Intern = require('../lib/Intern')
 const Engineer = require('../lib/Engineer')
 
 function generateEmployees(data) {
-    return `
-    <div class="col">
-        <div class="card m-2 shadow mb-5 bg-light rounded">
-            <div class="card-body bg-primary">
-                <h5 class="card-title text-light">${'employee name here'}</h5>
-                <p class="card-text text-light">${'employee role here'}</p>
+    if (role === "Manager") {
+        return `
+        <div class="col">
+            <div class="card m-2 shadow mb-5 bg-light rounded">
+                <div class="card-body bg-primary">
+                    <h5 class="card-title text-light">${getName(data.name)}</h5>
+                    <p class="card-text text-light">Manager</p>
+                </div>
+                <div class="bg-muted">
+                    <ul class="list-group list-group-flush m-4">
+                        <li class="list-group-item">ID: ${getID(data.id)}</li>
+                        <li class="list-group-item">Email: ${getEmail(data.email)}</li>
+                        <li class="list-group-item">${'phone number here'}</li>
+                    </ul>
+                </div>
             </div>
-            <div class="bg-muted">
-                <ul class="list-group list-group-flush m-4">
-                    <li class="list-group-item">ID: ${'ID number here'}</li>
-                    <li class="list-group-item">Email: ${'email here'}</li>
-                    <li class="list-group-item">${'other info here'}</li>
-                </ul>
+        </div> 
+        `
+    } else if (role === "Engineer") {
+        return `
+        <div class="col">
+            <div class="card m-2 shadow mb-5 bg-light rounded">
+                <div class="card-body bg-primary">
+                    <h5 class="card-title text-light">${getName(data.name)}</h5>
+                    <p class="card-text text-light">Engineer</p>
+                </div>
+                <div class="bg-muted">
+                    <ul class="list-group list-group-flush m-4">
+                        <li class="list-group-item">ID: ${getID(data.id)}</li>
+                        <li class="list-group-item">Email: ${getEmail(data.email)}</li>
+                        <li class="list-group-item">${'github goes here'}</li>
+                    </ul>
+                </div>
             </div>
-        </div>
-    </div> 
-    `
+        </div> 
+        `
+    } else if (role === "Intern") {
+        return `
+        <div class="col">
+            <div class="card m-2 shadow mb-5 bg-light rounded">
+                <div class="card-body bg-primary">
+                    <h5 class="card-title text-light">${getName(data.name)}</h5>
+                    <p class="card-text text-light">Intern</p>
+                </div>
+                <div class="bg-muted">
+                    <ul class="list-group list-group-flush m-4">
+                        <li class="list-group-item">ID: ${getID(data.id)}</li>
+                        <li class="list-group-item">Email: ${getEmail(data.email)}</li>
+                        <li class="list-group-item">${'school'}</li>
+                    </ul>
+                </div>
+            </div>
+        </div> 
+        `
+    }
 }
 
 function generateHTML(data) {
