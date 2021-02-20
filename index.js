@@ -69,8 +69,6 @@ const addPerson = () => {
             .then(answer => {
                 const newManager = new Manager(data.name, data.id, data.email, answer.phone)
                 employees.push(newManager)
-                console.log(employees)
-                console.log(newManager)
             })
         } else if (data.role === "Engineer") {
             return inquirer.prompt([

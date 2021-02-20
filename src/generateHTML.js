@@ -25,8 +25,8 @@ function managerCreate(mgr) {
             <div class="bg-muted">
                 <ul class="list-group list-group-flush m-4">
                     <li class="list-group-item">ID: ${mgr.getID()}</li>
-                    <li class="list-group-item">Email: ${mgr.getEmail()}</li>
-                    <li class="list-group-item">${mgr.getOfficeNumber()}</li>
+                    <li class="list-group-item">Email: <a href="mailto:${mgr.getEmail()}">${mgr.getEmail()}</a></li>
+                    <li class="list-group-item">Phone: ${mgr.getOfficeNumber()}</li>
                 </ul>
             </div>
         </div>
@@ -45,8 +45,8 @@ function internCreate(int) {
                 <div class="bg-muted">
                     <ul class="list-group list-group-flush m-4">
                         <li class="list-group-item">ID: ${int.getID()}</li>
-                        <li class="list-group-item">Email: ${int.getEmail()}</li>
-                        <li class="list-group-item">${int.getSchool()}</li>
+                        <li class="list-group-item">Email: <a href="mailto:${int.getEmail()}">${int.getEmail()}</a></li>
+                        <li class="list-group-item">School: ${int.getSchool()}</li>
                     </ul>
                 </div>
             </div>
@@ -65,8 +65,8 @@ function engineerCreate(eng) {
             <div class="bg-muted">
                 <ul class="list-group list-group-flush m-4">
                     <li class="list-group-item">ID: ${eng.getID()}</li>
-                    <li class="list-group-item">Email: ${eng.getEmail()}</li>
-                    <li class="list-group-item">${eng.getGithub()}</li>
+                    <li class="list-group-item">Email: <a href="mailto:${eng.getEmail()}">${eng.getEmail()}</a></li>
+                    <li class="list-group-item">Github: <a href="https://github.com/${eng.getGithub()}">github.com/${eng.getGithub()}</a></li>
                 </ul>
             </div>
         </div>
