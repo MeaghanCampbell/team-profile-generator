@@ -3,62 +3,77 @@ const Manager = require('../lib/Manager')
 const Intern = require('../lib/Intern')
 const Engineer = require('../lib/Engineer')
 
-function generateEmployees(data) {
-    if (role === "Manager") {
-        return `
-        <div class="col">
-            <div class="card m-2 shadow mb-5 bg-light rounded">
-                <div class="card-body bg-primary">
-                    <h5 class="card-title text-light">${getName(data.name)}</h5>
-                    <p class="card-text text-light">Manager</p>
-                </div>
-                <div class="bg-muted">
-                    <ul class="list-group list-group-flush m-4">
-                        <li class="list-group-item">ID: ${getID(data.id)}</li>
-                        <li class="list-group-item">Email: ${getEmail(data.email)}</li>
-                        <li class="list-group-item">${'phone number here'}</li>
-                    </ul>
-                </div>
+function generateEmployees(employees) {
+    // takes all managers out of employees array and loops through
+    const managerOutput = employees.filter(employee => employee.getRole() === "Manager").map(mgr => managerCreate(mgr))
+    const internOutput = employees.filter(employee => employee.getRole() === "Intern").map(int => internCreate(int))
+    const engineerOutput = employees.filter(employee => employee.getRole() === "Engineer").map(eng => engineerCreate(eng))
+
+    const htmlOutput = []
+    htmlOutput.push(managerOutput)
+    htmlOutput.push(internOutput)
+    htmlOutput.push(engineerOutput)
+
+function managerCreate(mgr) {
+    return `
+    <div class="col">
+        <div class="card m-2 shadow mb-5 bg-light rounded">
+            <div class="card-body bg-primary">
+                <h5 class="card-title text-light">${mgr.getName()}</h5>
+                <p class="card-text text-light">Manager</p>
             </div>
-        </div> 
-        `
-    } else if (role === "Engineer") {
-        return `
-        <div class="col">
-            <div class="card m-2 shadow mb-5 bg-light rounded">
-                <div class="card-body bg-primary">
-                    <h5 class="card-title text-light">${getName(data.name)}</h5>
-                    <p class="card-text text-light">Engineer</p>
-                </div>
-                <div class="bg-muted">
-                    <ul class="list-group list-group-flush m-4">
-                        <li class="list-group-item">ID: ${getID(data.id)}</li>
-                        <li class="list-group-item">Email: ${getEmail(data.email)}</li>
-                        <li class="list-group-item">${'github goes here'}</li>
-                    </ul>
-                </div>
+            <div class="bg-muted">
+                <ul class="list-group list-group-flush m-4">
+                    <li class="list-group-item">ID: ${mgr.getID()}</li>
+                    <li class="list-group-item">Email: ${mgr.getEmail()}</li>
+                    <li class="list-group-item">${mgr.getOfficeNumber()}</li>
+                </ul>
             </div>
-        </div> 
-        `
-    } else if (role === "Intern") {
-        return `
+        </div>
+    </div> 
+    `
+}
+
+function internCreate(int) {
+    return `
         <div class="col">
             <div class="card m-2 shadow mb-5 bg-light rounded">
                 <div class="card-body bg-primary">
-                    <h5 class="card-title text-light">${getName(data.name)}</h5>
+                    <h5 class="card-title text-light">${int.getName()}</h5>
                     <p class="card-text text-light">Intern</p>
                 </div>
                 <div class="bg-muted">
                     <ul class="list-group list-group-flush m-4">
-                        <li class="list-group-item">ID: ${getID(data.id)}</li>
-                        <li class="list-group-item">Email: ${getEmail(data.email)}</li>
-                        <li class="list-group-item">${'school'}</li>
+                        <li class="list-group-item">ID: ${int.getID()}</li>
+                        <li class="list-group-item">Email: ${int.getEmail()}</li>
+                        <li class="list-group-item">${int.getSchool()}</li>
                     </ul>
                 </div>
             </div>
         </div> 
         `
-    }
+}
+
+function engineerCreate(eng) {
+    return `
+    <div class="col">
+        <div class="card m-2 shadow mb-5 bg-light rounded">
+            <div class="card-body bg-primary">
+                <h5 class="card-title text-light">${eng.getName()}</h5>
+                <p class="card-text text-light">Engineer</p>
+            </div>
+            <div class="bg-muted">
+                <ul class="list-group list-group-flush m-4">
+                    <li class="list-group-item">ID: ${eng.getID()}</li>
+                    <li class="list-group-item">Email: ${eng.getEmail()}</li>
+                    <li class="list-group-item">${eng.getGithub()}</li>
+                </ul>
+            </div>
+        </div>
+    </div> 
+    `
+}
+return htmlOutput.join('')
 }
 
 function generateHTML(data) {

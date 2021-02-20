@@ -6,6 +6,8 @@ const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
 const Manager = require("./lib/Manager");
 
+const employees = []
+
 const addPerson = () => {
     return inquirer.prompt([
         {
@@ -26,6 +28,7 @@ const addPerson = () => {
             name: 'role',
             message: 'Please select employee role.',
             choices: ['Engineer', 'Manager', 'Intern']
+            
         },
         {
             type: 'input',
@@ -53,29 +56,71 @@ const addPerson = () => {
                 }
             }
         },
-        {
-            type: 'confirm',
-            name: 'confirmAnotherEmployee',
-            message: 'Would you like to enter another employee?',
-            default: false
-        },
     ])
-    // function to generate HTML or add another Employee
     .then(data => {
-        return generateHTML(data)
-    })
-    // function to write HTML file
-    .then(
-        function(data) {
-
-            fs.writeFile('./dist/index.html', data, err => {
-                if (err) {
-                    return console.log(err)
+        if (data.role === 'Manager') {
+            return inquirer.prompt([
+                {
+                    type: 'input',
+                    name: 'phone',
+                    message: 'Please enter managers phone number.'
                 }
-                console.log('Success! Check out the dist folder to view your file.')
+            ])
+            .then(answer => {
+                const newManager = new Manager(data.name, data.id, data.email, answer.phone)
+                employees.push(newManager)
+                console.log(employees)
+                console.log(newManager)
+            })
+        } else if (data.role === "Engineer") {
+            return inquirer.prompt([
+                {
+                    type: 'input',
+                    name: 'github',
+                    message: 'Please enter engineers github username.'
+                }
+            ])
+            .then(answer => {
+                const newEngineer= new Engineer(data.name, data.id, data.email, answer.github)
+                employees.push(newEngineer)
+            })
+        } else if (data.role === "Intern") {
+            return inquirer.prompt([
+                {
+                    type: 'input',
+                    name: 'school',
+                    message: 'What school did you intern attend?'
+                }
+            ])
+            .then(answer => {
+                const newIntern= new Intern(data.name, data.id, data.email, answer.school)
+                employees.push(newIntern)
             })
         }
-    )
+    })
+    .then(data => {
+        inquirer.prompt([
+            {
+                type: 'confirm',
+                name: 'confirmAnotherEmployee',
+                message: 'Would you like to enter another employee?',
+                default: false
+            },
+        ])
+        .then(data => {
+            if (data.confirmAnotherEmployee) {
+                addPerson()
+            } else {
+                generateHTML(employees)
+                fs.writeFile('./dist/index.html', generateHTML(employees), err => {
+                    if (err) {
+                        return console.log(err)
+                    } 
+                    console.log('Success! Check out the dist folder to view your file')
+                })
+            }
+        })
+    })
 }
 
 addPerson()
