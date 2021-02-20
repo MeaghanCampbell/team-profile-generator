@@ -3,7 +3,7 @@ const Manager = require('../lib/Manager')
 const Intern = require('../lib/Intern')
 const Engineer = require('../lib/Engineer')
 
-function generateBoxes() {
+function generateEmployees() {
     return `
     <div class="col">
         <div class="card m-2 shadow mb-5 bg-light rounded">
@@ -19,7 +19,7 @@ function generateBoxes() {
                 </ul>
             </div>
         </div>
-    </div>
+    </div> 
     `
 }
 
@@ -41,7 +41,7 @@ function generateHTML() {
                 <h1 class="text-light text-center p-2">My Team</h1>
             </div>
             <div class="row d-flex justify-content-center m-4">
-              ${generateBoxes()}
+              ${generateEmployees()}
             </div>
         </div>
     
